@@ -46,11 +46,22 @@ def invertindex(txtname, txtdata0, txtdata1):
     for s in tmpset:
         if not s.isspace():
             dict1[s].append([txtname, tmpdict[s]])
-    dict=sorted(dict1.items(),reverse=False)
+    #dict=sorted(dict1.items(),reverse=False)
 
 def display():
+    pwd0=os.getcwd()
+    rname=pwd0+'\\IndexResult'+'.txt'
+    f=open(rname,mode='a+',encoding='utf-8')
     for i in dict1.keys():
         print((i) + ': ' + str(dict2[i]) + '\n' + str(dict1[i]))
+        idexnum=len(dict1[i])
+        f.write(i+':'+str(dict2[i]))
+        for j in dict1[i]:
+            f.write(' ---->'+str(j[0])+':'+str(j[1]))
+        f.write('\n')
+    f.close()
+
+
 
 
 def main():
