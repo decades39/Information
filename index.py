@@ -10,7 +10,7 @@ def prune(txt):
     # 去除标点符号，保留姓名中间的·
     # t=re.sub(u"([^\u4e00-\u9fa5\u0030-\u0039\u0041-\u005a\u0061-\u007a])" ,"",txt)
     punctuation = "~!@#$%^&*()_+`{}|\[\]\:\";\='<>?,/"
-    t = re.sub('[,+=:：;。，、?!(){}*“”]', '', txt)
+    t = re.sub('[,+=:：;。，、?？!！\\-/（）(){}*“” ]', '', txt)
     return t
 
 
@@ -46,22 +46,36 @@ def invertindex(txtname, txtdata0, txtdata1):
     for s in tmpset:
         if not s.isspace():
             dict1[s].append([txtname, tmpdict[s]])
-    #dict=sorted(dict1.items(),reverse=False)
+    # dict=sorted(dict1.items(),reverse=False)
+
 
 def display():
-    pwd0=os.getcwd()
-    rname=pwd0+'\\IndexResult'+'.txt'
-    f=open(rname,mode='a+',encoding='utf-8')
+    pwd0 = os.getcwd()
+    rname = pwd0 + '\\IndexResult' + '.txt'
+    f = open(rname, mode='a+', encoding='utf-8')
     for i in dict1.keys():
-        print((i) + ': ' + str(dict2[i]) + '\n' + str(dict1[i]))
-        idexnum=len(dict1[i])
-        f.write(i+':'+str(dict2[i]))
+        print(i + ': ' + str(dict2[i]) + '\n' + str(dict1[i]))
+        idexnum = len(dict1[i])
+        f.write(i + ':' + str(dict2[i]))
         for j in dict1[i]:
-            f.write(' ---->'+str(j[0])+':'+str(j[1]))
+            f.write(' ---->' + str(j[0]) + ':' + str(j[1]))
         f.write('\n')
     f.close()
 
-
+def cutStore(num,words1,words2):
+    pwd0 = os.getcwd()
+    rname = pwd0 + '\\CutResult' + '.txt'
+    f = open(rname, mode='a+', encoding='utf-8')
+    totalnum=len(words1)+len(words2)
+    f.write(str(num)+' : '+str(totalnum)+'\n')
+    for w in words1:
+        f.write(str(w)+',  ')
+    f.write('\n')
+    for w in words2:
+        f.write(str(w)+',  ')
+    f.write('\n')
+    f.write('\n')
+    f.close()
 
 
 def main():
@@ -73,25 +87,21 @@ def main():
         print(str(i))
         child_dir = os.path.join(path, dir)
         # print(child_dir)
-        with open(child_dir, mode='r',encoding='utf-8') as file:
+        with open(child_dir, mode='r', encoding='utf-8') as file:
             data = file.readlines()
             data = [line.strip() for line in data]
-        # print(data[0])
-        # print(data[1])
         # print("去除标点等后：" + prune(data[0]))
         # print("去除标点等后：" + prune(data[1]))
         data[0] = prune(data[0])
         data[1] = prune(data[1])
-        # print(doubleMax(data[0], 'ChineseDic.txt'))
-        # print(doubleMax(data[1], 'ChineseDic.txt'))
-        invertindex(dir, doubleMax(data[0], 'ChineseDic.txt'), doubleMax(data[1], 'ChineseDic.txt'))
-
-        # print('\n')
-        # display()
-
-        # print('\n')
+        # print(data[0])
+        # print(data[1])
+        d0 = doubleMax(data[0], 'ChineseDic.txt')
+        d1 = doubleMax(data[1], 'ChineseDic.txt')
+        cutStore(i,d0,d1)
+        invertindex(dir, d0, d1)
         i = i + 1
 
 
 main()
-display()
+#display()
