@@ -37,7 +37,7 @@ def doubleMax(text, path):
 
 
 def main():
-    path = "sepnews"
+    path = "renamed"
     i = 1
     list=os.listdir(path)
     list.sort();
@@ -52,3 +52,4 @@ def main():
         print(doubleMax(data[1], 'ChineseDic.txt'))
         print('\n')
         i = i + 1
+#main()

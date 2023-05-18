@@ -2,3 +2,7 @@
 /test.txt
 /sepnews/
 /temp/
+/ __pycache__ /
+/CutResult1.0.txt
+/IndexResult1.0.txt
+/IndexResult2.0.txt
