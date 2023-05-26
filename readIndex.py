@@ -18,7 +18,7 @@ def readIndex(filepath):
     line = index.readline().strip()
     linenum = 1
     while line:
-        print(linenum)
+        # print(linenum)
         temp = re.split(' ---->|:', line)
         size = len(temp)
         # dict1[temp[0]] = list()
@@ -108,6 +108,8 @@ def TF_IDF_all():
 
 def TF(ti, dj):
     # 计算单个TF
+    # print(dict1)
+    # print("t: " , ti, "d: ", dj)
     if dj not in dict1[ti].keys():
         num_t_in_d = 0
     else:
@@ -128,11 +130,11 @@ def IDF(t):
 
 
 def TF_IDF(t, d):
-    # Calculate()
+    Calculate()
     tf_idf_td = TF(t, d) * IDF(t)
-    print(
-        "TF(" + str(t) + ", " + str(d) + ")( " + str(TF(t, d)) + ") * IDF(" + str(t) + ")(" + str(IDF(t)) + ")= " + str(
-            tf_idf_td))
+    # print(
+    #     "TF(" + str(t) + ", " + str(d) + ")( " + str(TF(t, d)) + ") * IDF(" + str(t) + ")(" + str(IDF(t)) + ")= " + str(
+    #         tf_idf_td))
     return tf_idf_td
 
 
@@ -145,6 +147,10 @@ def Score(q, d):
     return result
 
 
+def init_idf():
+    path = os.getcwd() + "\\IndexResult.txt"
+    readIndex(path)
+    Calculate()
 # -----------------------------------------以下为处理Bool类型的函数————————————————————————————————————————————————————————————————
 
 

@@ -62,17 +62,18 @@ def display():
         f.write('\n')
     f.close()
 
-def cutStore(num,words1,words2):
+
+def cutStore(num, words1, words2):
     pwd0 = os.getcwd()
     rname = pwd0 + '\\CutResult' + '.txt'
     f = open(rname, mode='a+', encoding='utf-8')
-    totalnum=len(words1)+len(words2)
-    f.write(str(num)+' : '+str(totalnum)+'\n')
+    totalnum = len(words1) + len(words2)
+    f.write(str(num) + ' : ' + str(totalnum) + '\n')
     for w in words1:
-        f.write(str(w)+',  ')
+        f.write(str(w) + ',  ')
     f.write('\n')
     for w in words2:
-        f.write(str(w)+',  ')
+        f.write(str(w) + ',  ')
     f.write('\n')
     f.write('\n')
     f.close()
@@ -98,10 +99,9 @@ def main():
         # print(data[1])
         d0 = doubleMax(data[0], 'ChineseDic.txt')
         d1 = doubleMax(data[1], 'ChineseDic.txt')
-        cutStore(i,d0,d1)
+        cutStore(i, d0, d1)
         invertindex(dir, d0, d1)
         i = i + 1
 
-
 # main()
-#display()
+# display()

@@ -39,17 +39,17 @@ def doubleMax(text, path):
 def main():
     path = "renamed"
     i = 1
-    list=os.listdir(path)
+    list = os.listdir(path)
     list.sort();
     for dir in list:
         print(str(i))
         child_dir = os.path.join(path, dir)
         # print(child_dir)
-        with open(child_dir, mode='r',encoding='utf-8') as file:
+        with open(child_dir, mode='r', encoding='utf-8') as file:
             data = file.readlines()
             data = [line.strip() for line in data]
         print(doubleMax(data[0], 'ChineseDic.txt'))
         print(doubleMax(data[1], 'ChineseDic.txt'))
         print('\n')
         i = i + 1
-#main()
+# main()

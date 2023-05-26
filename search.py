@@ -2,7 +2,10 @@ import os
 from index import prune
 from readIndex import progress, readIndex
 import re
-
+from McMd import init_all
+from McMd import uni_gram_search
+from McMd import bi_gram_search
+from shaungxiang import doubleMax
 
 def split_logic_expression(expression):
 
@@ -64,6 +67,50 @@ def search_documents(query):
             result.append({'title': data[0], 'summary': data[1], 'url': txt, 'score': item[1]})
     return result
 
+
+def search_unigram(query):
+    path = os.getcwd() + "\\IndexResult.txt"
+    readIndex(path)
+    result = []
+    intermediate_result = []
+    q = doubleMax(query, 'ChineseDic.txt')
+    print(q)
+    intermediate_result = uni_gram_search(q, lamada, top_k)
+    if len(intermediate_result) > 0:
+        for item in intermediate_result:
+            txt = item[0]  # 获取tuple中的Any元素
+            path = os.path.join("renamed", txt)
+            with open(path, mode='r', encoding='utf-8') as file:
+                data = file.readlines()
+                data = [line.strip() for line in data]
+            # data[0] = prune(data[0])
+            # data[1] = prune(data[1])
+            result.append({'title': data[0], 'summary': data[1], 'url': txt, 'score': item[1]})
+    return result
+
+def search_bigram(query):
+    path = os.getcwd() + "\\IndexResult.txt"
+    readIndex(path)
+    result = []
+    intermediate_result = []
+    q = doubleMax(query, 'ChineseDic.txt')
+    print(q)
+    intermediate_result = bi_gram_search(q, top_k)
+    if len(intermediate_result) > 0:
+        for item in intermediate_result:
+            txt = item[0]  # 获取tuple中的Any元素
+            path = os.path.join("renamed", txt)
+            with open(path, mode='r', encoding='utf-8') as file:
+                data = file.readlines()
+                data = [line.strip() for line in data]
+            # data[0] = prune(data[0])
+            # data[1] = prune(data[1])
+            result.append({'title': data[0], 'summary': data[1], 'url': txt, 'score': item[1]})
+    return result
+
+lamada = 0.87
+top_k = 10
+init_all(lamada)
 # def main():
 #     result = search_documents("还有 and 2020")
 #     print("---------------------------------最终结果----------------------------------------------")
